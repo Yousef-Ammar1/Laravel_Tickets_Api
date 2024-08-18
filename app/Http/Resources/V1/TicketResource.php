@@ -42,7 +42,7 @@ class TicketResource extends JsonResource
                     ]
             ],
             'includes' => new UserResource(
-                $this->whenLoaded('user')
+                $this->whenLoaded('auhtor')
             ),
             'links' => [
                 'self' => route('tickets.show', ['ticket' => $this->id]),
