@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'manager@manager.com',
             'password' => bcrypt('password'),
             'name' => 'The Manager',
-            'is_maneger' => true,
+            'is_manager' => true,
         ]);
         /*
         In the context of Laravel's factories, the recycle method is used to assign existing models

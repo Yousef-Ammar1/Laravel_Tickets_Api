@@ -5,7 +5,7 @@ namespace App\Http\Requests\Api\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreUserRequest extends FormRequest
+class StoreUserRequest extends BaseUserRequest
 {
 
     /**
@@ -13,7 +13,7 @@ class StoreUserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,12 +23,11 @@ class StoreUserRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [];
-        // return [
-        //     'data.attributes.title' => 'required|string',
-        //     'data.attributes.description' => 'required|string',
-        //     'data.attributes.status' => 'required|string, in:A,C,X,H',
-        //     'data.relationships.author.data.id' => 'required|integer',
-        // ];
+        return [
+            'data.attributes.name' => 'required|string',
+            'data.attributes.email' => 'required|email',
+            'data.attributes.password' => 'required|string',
+            'data.attributes.isManager' => 'required|boolean',
+        ];
     }
 }

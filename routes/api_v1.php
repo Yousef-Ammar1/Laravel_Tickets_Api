@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\V1\TicketController;
 use App\Http\Controllers\Api\V1\AuthorsController;
 use App\Http\Controllers\Api\V1\AuthorTicketsController;
+use App\Http\Controllers\Api\V1\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
@@ -14,7 +15,16 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
 
 
 
-    Route::apiResource('authors', AuthorsController::class);
+    Route::apiResource('users', UserController::class)
+        ->except(['update']);
+    Route::put('users/{user}', [UserController::class, 'replace']);
+    Route::patch('users/{user}', [UserController::class, 'update']);
+
+
+
+
+    Route::apiResource('authors', AuthorsController::class)
+    ->except(['store', 'update', 'delete']);
 
     Route::apiResource('authors.tickets', AuthorTicketsController::class)
         ->except(['update']);
