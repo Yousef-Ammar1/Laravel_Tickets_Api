@@ -32,7 +32,7 @@ class AuthorsController extends ApiController
      */
     public function store(StoreUserRequest $request)
     {
-        
+
     }
 
     /**
