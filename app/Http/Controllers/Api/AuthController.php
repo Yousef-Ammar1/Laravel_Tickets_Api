@@ -29,7 +29,7 @@ class AuthController extends Controller
         return $this->ok('Authenticated', [
             'user' => $user,
             'token' => $user->createToken(
-                'API token for' . $user->email,
+                'API token for ' . $user->email,
                 Abilities::getAbilities($user),
                 now()->addMonth()
             )
