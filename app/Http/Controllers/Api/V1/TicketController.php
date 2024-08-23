@@ -42,10 +42,10 @@ class TicketController extends ApiController
             // Policy
             $this->isAble('store', Ticket::class);
 
-            return new TicketResource(Ticket::create($request->mappedAttributes()));
+            return new TicketResource(Ticket::create($request->mappedAttributesd()));
 
         } catch (AuthorizationException $e) {
-            return $this->error('You are not authorized to create this resource.', 401);
+            return $this->error('You are not authorized to update this resource.', 401);
         }
 
     }
@@ -101,7 +101,7 @@ class TicketController extends ApiController
 
             $ticket->update($request->mappedAttributes());
 
-            return new TicketResource($ticket);
+
 
         } catch (ModelNotFoundException $e) {
             return $this->error('Ticket not found.', 404);
