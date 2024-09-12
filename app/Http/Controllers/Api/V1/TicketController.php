@@ -24,7 +24,14 @@ class TicketController extends ApiController
 
 
     /**
-     * Display a listing of the resource.
+     * Get all tickets.
+     *
+     * @group Managing Tickets
+     *
+     * @queryParam sort string Data field(s) to sort by. Seprate multiple fields with a comma. Denote descending sort with a minus sign. Example: sort=title, -createdAt
+     * @queryParam filter[status] Filter by status code: A, C, H. No-example.
+     * @queryParam filter[title] Filter by title. Wildcard characters are supported. Example: *fix*
+     *
      */
     public function index(TicketFilter $filters)
     {
@@ -34,7 +41,14 @@ class TicketController extends ApiController
 
 
     /**
-     * Store a newly created resource in storage.
+     * Create a ticket.
+     *
+     * Creates a new ticket. Users can only create tickets for themselves. Managers can create tickets for any user.
+     *
+     *
+     * @group Managing Tickets
+     * 
+     *
      */
     public function store(StoreTicketRequest $request)
     {
@@ -53,18 +67,11 @@ class TicketController extends ApiController
     /**
      * Display the specified resource.
      */
-    public function show($ticket_id)
+    public function show(Ticket $ticket)
     {
-        try {
-            $ticket = Ticket::findOrFail($ticket_id);
 
-            if ($this->include('author')) {
-                $ticket->load('user');
-            }
-
-            return new TicketResource($ticket);
-        } catch (ModelNotFoundException $e) {
-            return $this->error('Ticket not found.', 404);
+        if ($this->include('author')) {
+            $ticket->load('user');
         }
 
     }

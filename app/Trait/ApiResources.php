@@ -1,17 +1,16 @@
 <?php
 
-namespace  App\Trait;
+namespace App\Trait;
 
 trait ApiResources
 {
     protected function ok($message, $data = [])
-
     {
         return $this->success($message, $data, 200);
     }
 
 
-    public function success( $message = null, $data, $code = 200)
+    protected function success($message = null, $data, $code = 200)
     {
         return response()->json([
             'data' => $data,
@@ -21,11 +20,17 @@ trait ApiResources
     }
 
 
-    public function error( $message = null, $code = 400)
+    protected function error($errors = [], $code = null)
     {
+        if (is_string($errors)) {
+            return response()->json([
+                'message' => $errors,
+                'status ' => $code,
+            ], $code);
+        }
+
         return response()->json([
-            'message' => $message,
-            'status ' => $code,
-        ], $code);
+            'errors' => $errors,
+        ]);
     }
 }
