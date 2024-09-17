@@ -43,7 +43,6 @@ class AuthController extends Controller
 
     public function login(ApiLoginRequest $apiLoginRequest)
     {
-        $apiLoginRequest->validated($apiLoginRequest->all());
 
         if (!Auth::attempt($apiLoginRequest->only(['email', 'password']))) {
             return $this->error('Invalid Credentials', 401);
